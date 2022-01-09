@@ -104,3 +104,4 @@ Within the needles.js file, complete the nested `for` loop in the
 ## ITP2 Final case study
 
 - I have chosen this as my case study for ITP2. I am now going to try and push this onto Github and use that to treck the changes on this project as it develops.
+- I am going to do a test to se how git keeps track of my changes.
