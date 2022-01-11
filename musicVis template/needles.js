@@ -36,8 +36,8 @@ function Needles() {
     for (var i = 0; i < this.plotsDown; i++) {
       for (var j = 0; j < this.plotsAcross; j++) {
         //calculate the size of the plots
-        let x = width / 2;
-        let y = height / 2;
+        let x = this.plotWidth * 1.1;
+        let y = this.plotHeight * 1.1;
         let w = this.plotWidth;
         let h = this.plotHeight;
 
@@ -45,17 +45,13 @@ function Needles() {
         rect(x * j, y * i, w, h);
 
         //add on the ticks
-        this.ticks(
-          this.plotWidth * j + 350,
-          this.plotHeight * i + 400,
-          spectrum
-        );
+        this.ticks(x * j + 380, y * i + 395, this.frequencyBins[currentBin]);
         // ??
 
         var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
 
         //add the needle
-        this.needle(energy, this.plotWidth * j, this.plotHeight * i);
+        this.needle(energy, x * j + 380, y * i + 395);
         // ??
 
         currentBin++;
