@@ -1,7 +1,16 @@
 //constructor function to draw a
-function Needles() {
+function Needles(colour) {
   //name of the visualisation
   this.name = "needles";
+
+  //creating colour dropbox
+  this.colour = colour;
+  this.colourSelect = createSelect();
+  this.colourSelect.position(80, 20);
+  let colourOptions = ["grey", "brown", "red", "green", "yellow", "purple"];
+  for (let i = 0; i < colourOptions.length; i++) {
+    this.colourSelect.option(colourOptions[i]);
+  }
 
   //how large is the arc of the needle plot.
   var minAngle = PI + PI / 10;
@@ -26,12 +35,14 @@ function Needles() {
 
   // draw the plots to the screen
   this.draw = function () {
+    //setting the colour for the vis
+    this.colour = this.colourSelect.selected();
     //create an array amplitude values from the fft.
     let spectrum = fourier.analyze();
     //iterator for selecting frequency bin.
     let currentBin = 0;
     push();
-    fill("#f0f2d2");
+    fill(this.colour);
     //nested for loop to place plots in 2*2 grid.
     for (var i = 0; i < this.plotsDown; i++) {
       for (var j = 0; j < this.plotsAcross; j++) {
@@ -52,7 +63,6 @@ function Needles() {
 
         //add the needle
         this.needle(energy, x * j + 380, y * i + 395);
-        // ??
 
         currentBin++;
       }
