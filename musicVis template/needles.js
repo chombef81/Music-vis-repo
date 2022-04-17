@@ -1,16 +1,7 @@
 //constructor function to draw a
-function Needles(colour) {
+function Needles() {
   //name of the visualisation
   this.name = "needles";
-
-  //creating colour dropbox
-  this.colour = colour;
-  this.colourSelect = createSelect();
-  this.colourSelect.position(80, 20);
-  let colourOptions = ["grey", "brown", "red", "green", "yellow", "purple"];
-  for (let i = 0; i < colourOptions.length; i++) {
-    this.colourSelect.option(colourOptions[i]);
-  }
 
   //how large is the arc of the needle plot.
   var minAngle = PI + PI / 10;
@@ -35,14 +26,14 @@ function Needles(colour) {
 
   // draw the plots to the screen
   this.draw = function () {
-    //setting the colour for the vis
-    this.colour = this.colourSelect.selected();
     //create an array amplitude values from the fft.
-    let spectrum = fourier.analyze();
+    var spectrum = fourier.analyze();
     //iterator for selecting frequency bin.
-    let currentBin = 0;
+    var currentBin = 0;
+    angleMode(RADIANS);
     push();
-    fill(this.colour);
+
+    fill(240, 242, 210);
     //nested for loop to place plots in 2*2 grid.
     for (var i = 0; i < this.plotsDown; i++) {
       for (var j = 0; j < this.plotsAcross; j++) {
@@ -59,7 +50,7 @@ function Needles(colour) {
         this.ticks(x * j + 380, y * i + 395, this.frequencyBins[currentBin]);
         // ??
 
-        var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
+        let energy = fourier.getEnergy(this.frequencyBins[currentBin]);
 
         //add the needle
         this.needle(energy, x * j + 380, y * i + 395);
@@ -79,7 +70,8 @@ function Needles(colour) {
    */
   this.needle = function (energy, centreX, bottomY) {
     push();
-    stroke("#333333");
+
+    stroke(51, 51, 51);
     //translate so 0 is at the bottom of the needle
     translate(centreX, bottomY);
     //map the energy to the angle for the plot
@@ -101,9 +93,11 @@ function Needles(colour) {
   this.ticks = function (centreX, bottomY, freqLabel) {
     // 8 ticks from pi to 2pi
     var nextTickAngle = minAngle;
+
     push();
-    stroke("#333333");
-    fill("#333333");
+
+    stroke(51, 51, 51);
+    fill(51, 51, 51);
     translate(centreX, bottomY);
     //draw the semi circle for the botttom of the needle
     arc(0, 0, 20, 20, PI, 2 * PI);

@@ -7,8 +7,12 @@ let sound = null;
 //variable for p5 fast fourier transform
 let fourier;
 
+let font = null;
+
 function preload() {
-  sound = loadSound("assets/stomper_reggae_bit.mp3");
+  soundFormats("mp3", "wav");
+  sound = loadSound("assets/on-a-journey.mp3");
+  font = loadFont("assets/AlfaSlabOne-Regular.ttf");
 }
 
 function setup() {
@@ -26,6 +30,7 @@ function setup() {
   vis.add(new WavePattern());
   vis.add(new Needles());
   vis.add(new Orbit());
+  vis.add(new Fireworks());
 }
 
 function draw() {
@@ -37,9 +42,7 @@ function draw() {
 }
 
 function mouseClicked() {
-  controls.playbackButton.playbutton.mousePressed(
-    controls.playbackButton.hitCheck()
-  );
+  controls.mousePressed(controls.playbackButton.hitCheck());
 }
 
 function keyPressed() {
